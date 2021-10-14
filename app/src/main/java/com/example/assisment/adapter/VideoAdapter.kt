@@ -5,18 +5,21 @@ import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.assisment.App
 import com.example.assisment.R
-import com.example.assisment.adapter.TrendingAdapter.TrendHolder
+import com.example.assisment.adapter.VideoAdapter.TrendHolder
 import com.example.assisment.room.Entity
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
-class TrendingAdapter(var list: List<Entity>,val context: Context) : RecyclerView.Adapter<TrendHolder>() {
+class VideoAdapter(var list: List<Entity>, val context: Context) :
+    RecyclerView.Adapter<TrendHolder>() {
     /*
     updates the list of recycler view with updated items
      */
@@ -34,15 +37,24 @@ class TrendingAdapter(var list: List<Entity>,val context: Context) : RecyclerVie
         val title: TextView = holder.title
         val thumbnail: ImageView = holder.thumbnail
         val onClick: LinearLayout = holder.onClick
+        val imageProgress: ProgressBar = holder.imageProgress
         val item = list[position]
-        title.text = item.title
 
+        title.text = item.title
         Picasso.get()
             .load(item.thumbnailUrl)
             .noFade()
-            .into(thumbnail)
+            .into(thumbnail, object : Callback {
+                override fun onSuccess() {
+                    imageProgress.visibility=GONE
+                }
+
+                override fun onError(e: Exception?) {
+                    thumbnail.setImageResource(R.drawable.not_found)
+                }
+            })
         /*
-        Starts video
+        Starts video on Youtube app
          */
         onClick.setOnClickListener {
             val videoLink = item.videoLink
@@ -62,5 +74,6 @@ class TrendingAdapter(var list: List<Entity>,val context: Context) : RecyclerVie
         val thumbnail = itemView.findViewById<ImageView>(R.id.thumbnail)!!
         val title = itemView.findViewById<TextView>(R.id.title)!!
         val onClick = itemView.findViewById<LinearLayout>(R.id.list_item)!!
+        val imageProgress = itemView.findViewById<ProgressBar>(R.id.image_progress)!!
     }
 }
