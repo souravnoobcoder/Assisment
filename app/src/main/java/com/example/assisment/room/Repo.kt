@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 class Repo(application: Application?) {
     private val dao: VideoDao
     private val videoList: LiveData<List<Entity>>
-    suspend fun insert(vararg videos: Entity) = dao.insert(*videos)
+    suspend fun insert(videos: List<Entity>) = dao.insert(videos)
 
     suspend fun deleteAll()=dao.deleteAll()
 

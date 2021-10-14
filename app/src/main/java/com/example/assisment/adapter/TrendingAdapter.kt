@@ -9,11 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.assisment.Item
 import com.example.assisment.R
 import com.example.assisment.adapter.TrendingAdapter.TrendHolder
+import com.example.assisment.room.Entity
 import com.squareup.picasso.Picasso
 
-class TrendingAdapter(var list: List<Item>) : RecyclerView.Adapter<TrendHolder>() {
+class TrendingAdapter(var list: List<Entity>) : RecyclerView.Adapter<TrendHolder>() {
 
-    fun update(list: List<Item>){
+    fun update(list: List<Entity>){
 
     }
 
@@ -27,9 +28,9 @@ class TrendingAdapter(var list: List<Item>) : RecyclerView.Adapter<TrendHolder>(
         val thumbnail:ImageView=holder.thumbnail
 
         val item=list[position]
-        title.text=item.snippet.title
+        title.text=item.title
         Picasso.get()
-            .load(item.snippet.thumbnails.medium.url)
+            .load(item.thumbnailUrl)
             .noFade()
             .into(thumbnail)
 

@@ -2,13 +2,17 @@ package com.example.assisment.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
 
 @Dao
 interface VideoDao {
+    @Insert
+    suspend fun insert(videos: List<Entity>)
 
-    suspend fun insert(vararg videos: Entity)
-
+    @Query("DELETE FROM Video")
     suspend fun deleteAll()
 
+    @Query("SELECT * FROM Video")
     fun getVideosList(): LiveData<List<Entity>>
 }
