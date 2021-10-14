@@ -5,7 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object YoutubeApi {
-    private const val BASE_URL = "https://developers.google.com/youtube/v3/"
+    private const val BASE_URL = "https://youtube.googleapis.com/youtube/v3/"
     private var youtubeApiInstance: Retrofit? = null
     val retrofit: Retrofit?
         get() {
