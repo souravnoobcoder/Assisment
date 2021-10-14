@@ -95,6 +95,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }else{
                 makeToast("No Connection")
+                refreshLayout!!.isRefreshing = false
             }
 
         }
@@ -125,6 +126,7 @@ class MainActivity : AppCompatActivity() {
                 @RequiresApi(Build.VERSION_CODES.M)
                 if (App.isOnline())
                     makeToast("Sorry \nTry Again Please!!")
+                else
                 makeToast("No Connection")
             }
         })
@@ -185,10 +187,10 @@ class MainActivity : AppCompatActivity() {
                 @RequiresApi(Build.VERSION_CODES.M)
                 if (App.isOnline())
                     makeToast("Sorry \nTry Again Please!!")
+                else
                 makeToast("No Connection")
                 progressBar?.visibility = GONE
             }
-
         })
     }
 

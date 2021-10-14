@@ -17,8 +17,6 @@ class App : Application() {
 
     companion object {
         private var appInstance: App? = null
-        fun getAppInstance() = appInstance
-
         @RequiresApi(Build.VERSION_CODES.M)
         fun isOnline(): Boolean {
             val connectivityManager =

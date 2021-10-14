@@ -18,7 +18,7 @@ import com.example.assisment.room.Entity
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
-class VideoAdapter(var list: List<Entity>, val context: Context) :
+class VideoAdapter(var list: List<Entity>, private val context: Context) :
     RecyclerView.Adapter<TrendHolder>() {
     /*
     updates the list of recycler view with updated items
