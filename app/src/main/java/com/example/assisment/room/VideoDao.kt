@@ -8,7 +8,7 @@ import androidx.room.Query
 @Dao
 interface VideoDao {
     @Insert
-    suspend fun insert(videos: List<Entity>)
+    suspend fun insert(video: Entity)
 
     @Query("DELETE FROM Video")
     suspend fun deleteAll()

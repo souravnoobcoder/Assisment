@@ -9,12 +9,12 @@ object YoutubeApi {
     private var youtubeApiInstance: Retrofit? = null
     val retrofit: Retrofit?
         get() {
-          if (youtubeApiInstance==null){
-            youtubeApiInstance=Retrofit.Builder()
-              .baseUrl(BASE_URL)
-              .addConverterFactory(GsonConverterFactory.create())
-              .build()
-          }
-          return youtubeApiInstance
+            if (youtubeApiInstance == null) {
+                youtubeApiInstance = Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+            }
+            return youtubeApiInstance
         }
 }

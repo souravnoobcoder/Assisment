@@ -2,15 +2,16 @@ package com.example.assisment
 
 import android.app.Application
 
-class App : Application(){
+class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        if (appInstance==null){
-            appInstance= this
+        if (appInstance == null) {
+            appInstance = this
         }
     }
-    companion object{
-        private var appInstance: App? =null
+
+    companion object {
+        private var appInstance: App? = null
         fun getAppInstance() = appInstance
     }
 }

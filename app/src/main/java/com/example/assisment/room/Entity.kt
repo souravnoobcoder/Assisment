@@ -1,11 +1,14 @@
 package com.example.assisment.room
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "Video")
 data class Entity(
-    val id: Int,
-    val thumbnailUrl: String,
-    val title: String,
-    val videoLink: String
-)
+    var thumbnailUrl: String,
+    var title: String,
+    var videoLink: String
+) {
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0
+}
