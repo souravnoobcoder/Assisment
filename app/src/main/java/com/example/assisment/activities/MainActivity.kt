@@ -87,6 +87,7 @@ class MainActivity : AppCompatActivity() {
         refreshLayout?.setOnRefreshListener {
             @RequiresApi(Build.VERSION_CODES.M)
             if (App.isOnline()){
+                bo=true
                 deleteAll()
                 fetchDataFirstTime()
                 CoroutineScope(Main).launch {
