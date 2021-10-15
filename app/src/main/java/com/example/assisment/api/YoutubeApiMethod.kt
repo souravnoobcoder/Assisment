@@ -6,15 +6,16 @@ import retrofit2.http.Query
 
 interface YoutubeApiMethod {
 
-    /*
-    fetch the default or first page
-     */
+    /**
+      *  fetch the default or first page
+      */
     @GET("videos?part=snippet&chart=mostPopular&key=$apiKey&maxResults=$firstCallSize&regionCode=IN")
     fun getList(): Call<Trending>
 
-    /*
-    fetch page with new pageToken
-    */
+    /**
+      * fetch page with
+      * @param pageToken next page token
+      */
     @GET(
         "https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&key=$apiKey" +
                 "&pageToken=CAMQAA&maxResults=$secondCallSize&regionCode=IN"

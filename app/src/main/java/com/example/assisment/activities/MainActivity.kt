@@ -45,8 +45,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        /*
-        Initializing variables
+        /**
+         * @Initializing variables
          */
         viewModel = ViewModelProvider(this@MainActivity).get(VideoViewModel::class.java)
         recyclerView = findViewById(R.id.trending_list)
@@ -55,19 +55,19 @@ class MainActivity : AppCompatActivity() {
         refreshLayout = findViewById(R.id.refresh_layout)
         recyclerView?.layoutManager = LinearLayoutManager(this@MainActivity)
 
-        /*
-        delete previous items if network is connected
-        */
+        /**
+         * @delete previous items if network is connected
+         */
         @RequiresApi(Build.VERSION_CODES.M)
         if (App.isOnline())
             deleteAll()
 
         fetchDataFirstTime()
 
-        /*
-        When User comes to the end of the recyclerView
-        and scroll up then this invokes it adds new data to
-        LocalDatabase and UI
+        /**
+         *  When User comes to the end of the recyclerView and
+         *  @scroll up then this invokes it adds new data to
+         *  LocalDatabase and UI
          */
         recyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -79,22 +79,22 @@ class MainActivity : AppCompatActivity() {
         })
         showData()
 
-        /*
-        Invokes when you refresh the page
-        It deletes every previous data and fill fresh new data on
-        localDatabase and on UI
+        /**
+         * Invokes when you refresh the page
+         * @deletes every previous data and fill fresh new data on
+         * localDatabase and on UI
          */
         refreshLayout?.setOnRefreshListener {
             @RequiresApi(Build.VERSION_CODES.M)
-            if (App.isOnline()){
-                bo=true
+            if (App.isOnline()) {
+                bo = true
                 deleteAll()
                 fetchDataFirstTime()
                 CoroutineScope(Main).launch {
                     delay(500)
                     refreshLayout!!.isRefreshing = false
                 }
-            }else{
+            } else {
                 makeToast("No Connection")
                 refreshLayout!!.isRefreshing = false
             }
@@ -102,9 +102,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /*
-    fetches data for first time when application is started
-    and save results to the local database
+    /**
+     * @fetches data for first time when application is started and
+     * @save results to the local database
      */
     private fun fetchDataFirstTime() {
         api?.getList()?.enqueue(object : Callback<Trending> {
@@ -128,19 +128,20 @@ class MainActivity : AppCompatActivity() {
                 if (App.isOnline())
                     makeToast("Sorry \nTry Again Please!!")
                 else
-                makeToast("No Connection")
+                    makeToast("No Connection")
             }
         })
     }
 
-    /*
-     Show video list to the user and update itself when needed
-    */
+    /**
+     * @Show video list to the user and
+     * @update itself when needed
+     */
     private fun showData() {
         viewModel?.videoList?.observe(this,
             {
                 if (bo) {
-                    adapter = VideoAdapter(it,this@MainActivity)
+                    adapter = VideoAdapter(it, this@MainActivity)
                     recyclerView?.adapter = adapter
                     bo = false
                 } else {
@@ -149,8 +150,9 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
-    /*
-    insert a list of video objects in local database
+    /**
+     * @insert a list of video objects in local database
+     * @param videos list of Entities
      */
     private fun setRoom(videos: MutableList<Entity>) {
         for (i in 1 until videos.size) {
@@ -161,10 +163,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    /*
-    fetches new data with the nextPageToken
-    and save it to local database
-    */
+    /**
+     *  @fetches new data with
+     *  @param nextPageToken
+     *  and save it to local database
+     */
     private fun fetchNewData(nextPageToken: String?) {
         progressBar?.visibility = VISIBLE
         api?.getNextList(nextPageToken)?.enqueue(object : Callback<Trending> {
@@ -189,15 +192,15 @@ class MainActivity : AppCompatActivity() {
                 if (App.isOnline())
                     makeToast("Sorry \nTry Again Please!!")
                 else
-                makeToast("No Connection")
+                    makeToast("No Connection")
                 progressBar?.visibility = GONE
             }
         })
     }
 
-    /*
-    delete all data of local database
-    */
+    /**
+     * @delete all data of local database
+     */
     private fun deleteAll() = CoroutineScope(IO).launch { viewModel?.deleteAll() }
-    private fun makeToast(message:String)=Toast.makeText(this,message,Toast.LENGTH_LONG).show()
+    private fun makeToast(message: String) = Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 }

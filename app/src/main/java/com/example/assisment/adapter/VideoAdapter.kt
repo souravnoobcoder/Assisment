@@ -20,8 +20,9 @@ import com.squareup.picasso.Picasso
 
 class VideoAdapter(var list: List<Entity>, private val context: Context) :
     RecyclerView.Adapter<TrendHolder>() {
-    /*
-    updates the list of recycler view with new items added to it
+    /**
+     * @param list this is the list of new entities + previous
+     * @updates the list of recycler view with new items added to it
      */
     fun update(list: List<Entity>) {
         val startPosition = this.list.size + 1
@@ -48,7 +49,7 @@ class VideoAdapter(var list: List<Entity>, private val context: Context) :
             .noFade()
             .into(thumbnail, object : Callback {
                 override fun onSuccess() {
-                    imageProgress.visibility=GONE
+                    imageProgress.visibility = GONE
                 }
 
                 override fun onError(e: Exception?) {
@@ -56,8 +57,8 @@ class VideoAdapter(var list: List<Entity>, private val context: Context) :
                     imageProgress.visibility = GONE
                 }
             })
-        /*
-        Starts video on Youtube app
+        /**
+         * @Starts video on Youtube app
          */
         onClick.setOnClickListener {
             val videoLink = item.videoLink

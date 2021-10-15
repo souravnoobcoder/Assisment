@@ -17,6 +17,11 @@ class App : Application() {
 
     companion object {
         private var appInstance: App? = null
+
+        /**
+         * @return true if connected to any network and
+         * @return false if not connected
+         */
         @RequiresApi(Build.VERSION_CODES.M)
         fun isOnline(): Boolean {
             val connectivityManager =
