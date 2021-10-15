@@ -17,7 +17,7 @@ interface YoutubeApiMethod {
     */
     @GET(
         "https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&key=$apiKey" +
-                "&pageToken=CAMQAA&maxResults=$secondCallSize"
+                "&pageToken=CAMQAA&maxResults=$secondCallSize&regionCode=IN"
     )
     fun getNextList(@Query("pageToken") pageToken: String?): Call<Trending>
 
