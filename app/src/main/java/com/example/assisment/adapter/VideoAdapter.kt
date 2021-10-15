@@ -21,11 +21,13 @@ import com.squareup.picasso.Picasso
 class VideoAdapter(var list: List<Entity>, private val context: Context) :
     RecyclerView.Adapter<TrendHolder>() {
     /*
-    updates the list of recycler view with updated items
+    updates the list of recycler view with new items added to it
      */
     fun update(list: List<Entity>) {
+        val startPosition = this.list.size + 1
+        val numberOfItems = list.size - this.list.size
         this.list = list
-        notifyDataSetChanged()
+        notifyItemRangeInserted(startPosition, numberOfItems)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendHolder {
@@ -51,6 +53,7 @@ class VideoAdapter(var list: List<Entity>, private val context: Context) :
 
                 override fun onError(e: Exception?) {
                     thumbnail.setImageResource(R.drawable.not_found)
+                    imageProgress.visibility = GONE
                 }
             })
         /*
