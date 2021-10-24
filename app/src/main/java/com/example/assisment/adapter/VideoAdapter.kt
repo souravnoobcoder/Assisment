@@ -18,17 +18,17 @@ import com.example.assisment.room.Entity
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
-class VideoAdapter(var list: List<Entity>, private val context: Context) :
+class VideoAdapter(private val context: Context) :
     RecyclerView.Adapter<TrendHolder>() {
+    private var list: List<Entity> = emptyList()
+
     /**
      * @param list this is the list of new entities + previous
      * @updates the list of recycler view with new items added to it
      */
     fun update(list: List<Entity>) {
-        val startPosition = this.list.size + 1
-        val numberOfItems = list.size - this.list.size
         this.list = list
-        notifyItemRangeInserted(startPosition, numberOfItems)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendHolder {

@@ -1,18 +1,18 @@
 package com.example.assisment.room
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface VideoDao {
     @Insert
-    suspend fun insert(video: Entity)
+    suspend fun insert(video: List<Entity>)
 
     @Query("DELETE FROM Video")
     suspend fun deleteAll()
 
     @Query("SELECT * FROM Video")
-    fun getVideosList(): LiveData<List<Entity>>
+    fun getVideosList(): Flow<List<Entity>>
 }
